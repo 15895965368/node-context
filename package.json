@@ -1,0 +1,22 @@
+{
+  "name": "node-context",
+  "version": "1.0.0",
+  "description": "项目脚手架目录",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/15895965368/node-context.git"
+  },
+  "author": "pp&qts",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/15895965368/node-context/issues"
+  },
+  "homepage": "https://github.com/15895965368/node-context#readme",
+  "devDependencies": {
+    "express-generator": "^4.16.0"
+  }
+}
