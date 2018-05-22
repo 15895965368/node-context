@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/15895965368/node-context#readme",
   "devDependencies": {
-    "express-generator": "^4.16.0"
+    "express-generator": "^4.16.0",
+    "vue-cli": "^2.9.3"
   }
 }
