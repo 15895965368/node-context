@@ -4,14 +4,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var config = require('config-lite');
+var db = require('./mongodb/db');//连接mongodb数据库
+var session = require('express-session');
+var connectMongo = require('connect-mongo');//session存储mongodb
+//var winston = require('winston');
+//var expressWinston = require('express-winston');//日志框架
+
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+
+const MongoStore = connectMongo(session);
+
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -19,8 +27,45 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+//session存储
+app.use(session({
+	    name: config.session.name,
+		secret: config.session.secret,
+		resave: true,
+		saveUninitialized: false,
+		cookie: config.session.cookie,
+		store: new MongoStore({
+		    url: config.url
+		})
+}))
+
+//日志
+/*app.use(expressWinston.logger({  
+    transports: [  
+        new (winston.transports.Console)({  
+          json: true,  
+          colorize: true  
+        }),  
+        new winston.transports.File({  
+          filename: 'logs/success.log'  
+        })  
+    ]  
+})); */
+indexRouter(app);
+//日志
+/*app.use(expressWinston.errorLogger({  
+    transports: [  
+        new winston.transports.Console({  
+          json: true,  
+          colorize: true  
+        }),  
+        new winston.transports.File({  
+          filename: 'logs/error.log'  
+        })  
+    ]  
+}));*/ 
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
