@@ -17,7 +17,18 @@ var indexRouter = require('./routes/index');
 var app = express();
 
 
-const MongoStore = connectMongo(session);
+app.all('*', (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", req.headers.Origin || req.headers.origin );
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Credentials", true); //可以带cookies
+  res.header("X-Powered-By", '3.2.1')
+  if (req.method == 'OPTIONS') {
+      res.send(200);
+  } else {
+      next();
+  }
+});
 
 
 
@@ -25,9 +36,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 
+const MongoStore = connectMongo(session);
 //session存储
 app.use(session({
 	    name: config.session.name,
@@ -65,7 +76,7 @@ indexRouter(app);
         })  
     ]  
 }));*/ 
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
