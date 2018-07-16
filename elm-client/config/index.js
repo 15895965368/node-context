@@ -4,23 +4,41 @@
 
 const path = require('path')
 
+const options = {
+  target: 'http://elm.cangdu.org',
+  changeOrigin: true
+};
+
 module.exports = {
   dev: {
 
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/shopping': options,
+      '/ugc':options,
+      '/v1':options,
+      '/v2':options,
+      '/v3':options,
+      '/v4':options,
+      '/bos':options,
+      '/member':options,
+      '/promotion':options,
+      '/eus':options,
+      '/payapi':options,
+      '/img':options,
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 80, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
@@ -37,6 +55,7 @@ module.exports = {
   },
 
   build: {
+
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
 
