@@ -33,8 +33,8 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes,
   mode:'hash',
-  //strict: process.env.NODE_ENV !== 'production',
-  /*scrollBehavior (to, from, savedPosition) {
+  strict: process.env.NODE_ENV !== 'production',
+  scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
@@ -43,7 +43,7 @@ const router = new VueRouter({
       }
       return { x: 0, y: to.meta.savedPosition || 0 }
     }
-  }*/
+  }
 })
 //Vue.config.productionTip = false
 
