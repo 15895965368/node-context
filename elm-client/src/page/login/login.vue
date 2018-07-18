@@ -18,27 +18,102 @@
           <span>...</span>
         </div>
       </section>
+      <section class="input_container captcha_code_container">
+        <input type="text" placeholder="验证码" maxlength="4" v-model="codeNumber"/>
+        <div class="img_change_img">
+          <img :src="captchaCodeImg" v-show="captchaCodeImg"/>
+          <div class="change_img" @click="getCaptchaCode">
+            <p>看不清</p>
+            <p>换一张</p>
+          </div>
+        </div>
+      </section>
     </form>
+
+    <p class="login_tips">
+      温馨提示：未注册过的账号，登录时将自动注册
+    </p>
+    <p class="login_tips">
+      注册过的用户可凭账号密码登录
+    </p>
+
+    <div class="login_container" @click="mobileLogin">登录</div>
 
   </div>
 </template>
 
 <script>
 import headTop from '@/components/header/header'
+import {mobileCode, checkExsis, sendLogin, getcaptchas, accountLogin} from '@/service/getData'
 export default {
     data(){
       return {
         loginWay:false,//默认短信
         userAccount:null,//用户名
         showPassword: false, // 是否显示密码
+        passWord: null, //密码
+        codeNumber: null, //验证码
+        captchaCodeImg: null, //验证码地址
       }
+    },
+    created(){
+      this.getCaptchaCode();
     },
     components:{
       headTop
     },
     methods:{
+      //是否显示密码
       changePassWordType(){
         this.showPassword = !this.showPassword;
+      },
+      //获取验证吗，线上环境使用固定的图片，生产环境使用真实的验证码
+      async getCaptchaCode(){
+        let res = await getcaptchas();
+        this.captchaCodeImg = res.code;
+      },
+
+      //发送登录信息
+      async mobileLogin(){
+        if (this.loginWay) {
+          if (!this.rightPhoneNumber) {
+            this.showAlert = true;
+            this.alertText = '手机号码不正确';
+            return
+          }else if(!(/^\d{6}$/gi.test(this.mobileCode))){
+            this.showAlert = true;
+            this.alertText = '短信验证码不正确';
+            return
+          }
+          //手机号登录
+          this.userInfo = await sendLogin(this.mobileCode, this.phoneNumber, this.validate_token);
+        }else{
+          if (!this.userAccount) {
+            this.showAlert = true;
+            this.alertText = '请输入手机号/邮箱/用户名';
+            return
+          }else if(!this.passWord){
+            this.showAlert = true;
+            this.alertText = '请输入密码';
+            return
+          }else if(!this.codeNumber){
+            this.showAlert = true;
+            this.alertText = '请输入验证码';
+            return
+          }
+          //用户名登录
+          this.userInfo = await accountLogin(this.userAccount, this.passWord, this.codeNumber);
+        }
+        //如果返回的值不正确，则弹出提示框，返回的值正确则返回上一页
+        if (!this.userInfo.user_id) {
+          this.showAlert = true;
+          this.alertText = this.userInfo.message;
+          if (!this.loginWay) this.getCaptchaCode();
+        }else{
+          this.RECORD_USERINFO(this.userInfo);
+          this.$router.go(-1);
+
+        }
       },
     }
 }
