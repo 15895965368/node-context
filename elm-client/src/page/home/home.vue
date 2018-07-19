@@ -1,7 +1,7 @@
 <template>
   <div>
     <head-top signin-up="home">
-      <span slot="logo" class="head_logo" @click="reload">饿了么</span>
+      <span slot="logo" class="head_logo" @click="reload">xiaobaigou</span>
     </head-top>
 
     <nav class="city_nav">

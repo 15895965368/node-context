@@ -411,7 +411,7 @@ var sendLogin = (code, mobile, validate_token) => fetch('/v1/login/app_mobile', 
 	mobile,
 	validate_token
 }, 'POST');
-
+export {sendLogin}
 
 /**
  * 获取订单列表

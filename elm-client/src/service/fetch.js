@@ -2,7 +2,7 @@ import {
 	baseUrl
 } from '@/config/env'
 
-export default async(url = '', data = {}, type = 'GET', method = 'fetch') => {
+export default async(url = '', data = {}, type = 'GET', method = '11') => {
 	type = type.toUpperCase();
 	url = baseUrl + url;
 
