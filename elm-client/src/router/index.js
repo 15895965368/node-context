@@ -4,6 +4,7 @@ import App from '@/App.vue'
 const home = resolve => require(['@/page/home/home'],resolve)
 const login = resolve => require(['@/page/login/login'],resolve)
 const city = resolve => require(['@/page/city/city'],resolve);
+const msite = r => require(['@/page/msite/msite'],r)
 // console.log('aa')
 const routes = [{
   path:'/',
@@ -25,6 +26,12 @@ const routes = [{
     {
       path: '/city/:cityid',
       component: city
+    },
+    //所有商铺列表页
+    {
+      path:'/msite',
+      component:msite,
+      meta: { keepAlive: true },
     },
   ]
 }]
