@@ -7,8 +7,11 @@ const city = resolve => require(['@/page/city/city'],resolve);
 const msite = r => require(['@/page/msite/msite'],r)
 const search = r => require(['@/page/search/search'],r)
 const food = r => require(['@/page/food/food'],r)
+const order = r => require(['@/page/order/order'],r)
+const orderDetail = r => require(['@/page/order/children/orderDetail'],r)
+const profile = r => require(['@/page/profile/profile'],r)
 
-// console.log('aa')
+
 const routes = [{
   path:'/',
   component:App,
@@ -46,6 +49,23 @@ const routes = [{
       path: '/food',
       component: food
     },
+    //订单列表页
+    {
+      path: '/order',
+      component: order,
+      children: [{
+        path: 'orderDetail', //订单详情页
+        component: orderDetail,
+      }, ]
+    },
+    //个人信息页
+    {
+      path: '/profile',
+      component: profile,
+    },
+
+
+
   ]
 }]
 
