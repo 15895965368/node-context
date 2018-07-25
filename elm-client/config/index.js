@@ -5,7 +5,7 @@
 const path = require('path')
 
 const options = {
-  target: 'http://localhost:8001',//'http://elm.cangdu.org',//
+  target: 'http://elm.cangdu.org',//'http://localhost:8001',//
   changeOrigin: true
 };
 

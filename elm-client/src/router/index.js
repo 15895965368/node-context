@@ -5,6 +5,9 @@ const home = resolve => require(['@/page/home/home'],resolve)
 const login = resolve => require(['@/page/login/login'],resolve)
 const city = resolve => require(['@/page/city/city'],resolve);
 const msite = r => require(['@/page/msite/msite'],r)
+const search = r => require(['@/page/search/search'],r)
+const food = r => require(['@/page/food/food'],r)
+
 // console.log('aa')
 const routes = [{
   path:'/',
@@ -32,6 +35,16 @@ const routes = [{
       path:'/msite',
       component:msite,
       meta: { keepAlive: true },
+    },
+    //搜索页
+    {
+      path:'/search/:geohash',
+      component:search
+    },
+    //特色商铺列表页
+    {
+      path: '/food',
+      component: food
     },
   ]
 }]
