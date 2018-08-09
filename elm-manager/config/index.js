@@ -4,13 +4,34 @@
 
 const path = require('path')
 
+const options = {
+  target: 'http://elm.cangdu.org',//'http://localhost:8001',//
+  changeOrigin: true
+};
+
+
 module.exports = {
   dev: {
 
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/shopping': options,
+      '/ugc':options,
+      '/v1':options,
+      '/v2':options,
+      '/v3':options,
+      '/v4':options,
+      '/bos':options,
+      '/member':options,
+      '/promotion':options,
+      '/eus':options,
+      '/payapi':options,
+      '/img':options,
+      '/admin':options,
+      '/statis':options,
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -20,7 +41,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
@@ -43,7 +64,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
