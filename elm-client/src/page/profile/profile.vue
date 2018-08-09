@@ -12,7 +12,12 @@
 
       }
     },
+    components:{
 
+    },
+    methods:{
+
+    }
 
   }
 </script>
