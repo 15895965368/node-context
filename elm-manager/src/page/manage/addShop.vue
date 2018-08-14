@@ -117,7 +117,9 @@
               </template>
             </el-table-column>
           </el-table>
-
+          <el-form-item class="button_submit">
+            <el-button type="primary" @click="submitForm('formData')">立即创建</el-button>
+          </el-form-item>
 
         </el-form>
       </el-col>
